@@ -1,10 +1,7 @@
 @echo off
 set CMDER_INIT_START=%time%
 set GIT_INSTALL_ROOT=C:\Program Files\Git
-if not defined verbose_output set verbose_output=1
-if not defined debug_output set debug_output=1
-if not defined time_init set time_init=1
-if not defined fast_init set fast_init=0
+if not defined time_init set time_init=0
 if not defined max_depth set max_depth=1
 if not defined nix_tools set nix_tools=1
 
@@ -26,6 +23,7 @@ call "%cmder_root%\vendor\bin\cexec.cmd" /setpath
 call "%cmder_root%\vendor\lib\lib_console"
 call "%cmder_root%\vendor\lib\lib_git"
 call "%cmder_root%\vendor\lib\lib_profile"
+call "%cmder_root%\config\user_aliases.cmd"
 set "CMDER_SHELL=cmd"
 set CMDER_CLINK=1
 set CMDER_ALIASES=1
@@ -39,6 +37,9 @@ if not defined SVN_SSH set "SVN_SSH=%GIT_INSTALL_ROOT:\=\\%\\bin\\ssh.exe"
 set git_locale="%GIT_INSTALL_ROOT%\usr\bin\locale.exe"
 set LANG=zh_CN.UTF-8
 set CMDER_CONFIGURED=1
-alias ll=ls -alh --color=auto
 
+set CMDER_INIT_END=%time%
+if %time_init% gtr 0 (
+  "%cmder_root%\vendor\bin\timer.cmd" "%CMDER_INIT_START%" "%CMDER_INIT_END%"
+)
 exit /b
