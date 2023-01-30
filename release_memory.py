@@ -1,4 +1,5 @@
 #coding=utf-8
+# 可能用内存太多导致机器重启，慎用该脚本
 
 from multiprocessing import Pool
 from os import getpid
